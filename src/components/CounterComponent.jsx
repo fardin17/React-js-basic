@@ -7,7 +7,7 @@ const CounterComponent = ({ buttonName, setTotalCountValue }) => {
     setCount((prev) => prev + 1);
     setTotalCountValue((prev) => prev + 1);
   };
-
+console.log(count)
   return (
     <div>
       <button className="counter-button" onClick={handleCounter}>
