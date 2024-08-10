@@ -1,33 +1,33 @@
-import { memo, useMemo, useReducer, useState } from "react";
+import { memo, useEffect, useMemo, useReducer, useRef, useState } from "react";
 
-const CounterComponent = ({ buttonName }) => {
-  const reducer=(state,action)=>{
-    switch(action.type){
-      case 'increment': return {...state, count:state.count+1}
-      
-      case 'decrement': return {...state, count:state.count-1}
-
-      case 'IncrementByPayload':return {...state, count:state.count+action.payload}
-
-      default:
-        return state
-    }
+const CounterComponent = ({ buttonName },ref) => {
+  const [count, setCount] =useState(0)
+  const myref = useRef(null)
+  const inputref = useRef(null)
+  const value = useRef(false)
+useEffect(()=>{
+  if(!count){  
+    console.log('Counter Component Rendered')
+    setCount(1)
   }
-  const [countValue, dispatch] = useReducer(reducer,{count:0});
-
+  // console.log(myref.current)
+},[])
+const handleCounter =()=>{
+  // setCount(prev=>prev+1)
+  value.current= value.current+1
+  console.log(value.current)
+}
+// console.log(value.current)
   return (
     <div>
-      <button className="counter-button"
-       onClick={()=>dispatch({type:'increment'})}>
-      {`Increment ${buttonName}`}
+      <button className="counter-button" onClick={handleCounter}>
+      {`${buttonName}`}
       </button>
-      <button className="counter-button"
-       onClick={()=>dispatch({type:'decrement'})}>{`Decrement ${buttonName}`}</button>
-      <button className="counter-button"
-       onClick={()=>dispatch({type:'IncrementByPayload', payload:5})}>{`IncrementBy5 ${buttonName}`}</button>
-      <p>{countValue.count}</p>
-      <br/>
-       <p>{countValue.count}</p>
+      <p>State Value: {count}</p>
+      <p>Ref value: {value.current}</p>
+      <input ref={inputref}/>
+      <div ref={myref}> Hello World</div>
+      
     </div>
   );
 };

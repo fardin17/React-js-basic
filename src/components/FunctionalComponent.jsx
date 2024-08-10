@@ -12,7 +12,7 @@ function FunctionalComponent() {
     ()=>
       setTotalCountValue(prev=>prev+1),
     [])
- 
+  
   return (
     <div className="counter">
       {/* Conditional rendering to display Total Count or a message */}
