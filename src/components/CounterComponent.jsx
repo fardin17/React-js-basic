@@ -1,33 +1,33 @@
-import { memo, useMemo, useState } from "react";
+import { memo, useMemo, useReducer, useState } from "react";
 
-const CounterComponent = ({ buttonName, handleTotalCounter }) => {
-  const [count, setCount] = useState(0);
+const CounterComponent = ({ buttonName }) => {
+  const reducer=(state,action)=>{
+    switch(action.type){
+      case 'increment': return {...state, count:state.count+1}
+      
+      case 'decrement': return {...state, count:state.count-1}
 
-  const [random, setRandom] = useState(0);
-  const handleCounter = () => {
-    setCount((prev) => prev + 1);
-    handleTotalCounter()
-  };
-  function estimateCostlyValue(number){
-    let result=number
-    console.log('start....')
-    for (let i=0; i<1000000000; i++)result+=i
-    console.log('end....')
-    return result
+      case 'IncrementByPayload':return {...state, count:state.count+action.payload}
+
+      default:
+        return state
+    }
   }
-const randomBigCountValue=useMemo(()=>estimateCostlyValue(count),[count])
-console.log({randomBigCountValue})
+  const [countValue, dispatch] = useReducer(reducer,{count:0});
 
-  console.log(`${buttonName} component rendered`)
   return (
     <div>
-      <button className="counter-button" onClick={handleCounter}>
-        {buttonName}
+      <button className="counter-button"
+       onClick={()=>dispatch({type:'increment'})}>
+      {`Increment ${buttonName}`}
       </button>
-      <p>{count}</p>
-      
-      <button onClick={()=>setRandom(prev=>prev+1)}>Random</button>
-      <p>{random}</p>
+      <button className="counter-button"
+       onClick={()=>dispatch({type:'decrement'})}>{`Decrement ${buttonName}`}</button>
+      <button className="counter-button"
+       onClick={()=>dispatch({type:'IncrementByPayload', payload:5})}>{`IncrementBy5 ${buttonName}`}</button>
+      <p>{countValue.count}</p>
+      <br/>
+       <p>{countValue.count}</p>
     </div>
   );
 };
