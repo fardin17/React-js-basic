@@ -21,3 +21,21 @@
 .counter-button:focus {
   outline: none;
 }
+.bg-blue{
+  background-color: blue;
+}
+.bg-red{
+  background-color: red;
+}
+
+
+.todo-list{
+  display: flex;
+  gap: 10px;
+  background-color: whitesmoke;
+  padding-inline: 10px;
+  padding-block: 0px;
+  font-size: 18px;
+  margin-bottom: 10px ;
+  border-radius: 10px;
+}

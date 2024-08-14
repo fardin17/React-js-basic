@@ -1,20 +1,25 @@
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import CounterComponent from "./CounterComponent";
+import { CounterContext } from "../context/counter-context";
 
 function FunctionalComponent() {
   const [totalCountValue, setTotalCountValue] = useState(0);
-
+  const {count}=useContext(CounterContext)
   let buttonNames = ["Counter-1", "Counter-2", "Counter-3"];
-
-  console.log('Functional component rendered')
 
   const handleTotalCounter = useCallback(
     ()=>
       setTotalCountValue(prev=>prev+1),
     [])
-  
+  const [ theme, setTheme] = useState('white')
+
+  useEffect(()=>{
+if(count===5)setTheme('dark')
+  else setTheme('white')
+  },[count])
+
   return (
-    <div className="counter">
+    <div className={`${theme=='dark'?'bg-blue':'bg-red' } counter`}>
       {/* Conditional rendering to display Total Count or a message */}
       {totalCountValue ? <h2>Total Count: {totalCountValue}</h2> : <h2>No value added</h2>}
 
@@ -26,4 +31,7 @@ function FunctionalComponent() {
   );
 }
 
-export default FunctionalComponent;
+export default FunctionalComponent
+
+
+

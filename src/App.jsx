@@ -1,13 +1,20 @@
+import { useContext } from "react";
 import "./App.css";
 import ClassComponent from "./components/ClassComponent";
 import FunctionalComponent from "./components/FunctionalComponent";
-
+import CounterContextProvider, { CounterContext } from "./context/counter-context";
+import Todo from './todo'
+import TodoContextProvider from "./context/todo-context";
 function App() {
-  console.log('app component rendered')
+  
   return (
-    <div>
+    <div >
       <ClassComponent />
-      <FunctionalComponent />
+      {/* <CounterContextProvider> 
+        <FunctionalComponent />
+      </CounterContextProvider> */}
+      <TodoContextProvider> <Todo/></TodoContextProvider>
+    
     </div>
   );
 }
