@@ -1,15 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { TodoContext } from "../context/todo-context";
 
 const Todoform = () => {
-  
-  const {todoList, dispatch } = useContext(TodoContext)
+  const { dispatch } = useContext(TodoContext);
   const [todoFormState, setTodoFormState] = useState({
-
     title: "",
     description: "",
   });
-
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -20,7 +17,7 @@ const Todoform = () => {
   };
 
   const addTodo = () => {
-    dispatch({type:'add_todo', payload:todoFormState})
+    dispatch({ type: "add_todo", payload: todoFormState });
     setTodoFormState({
       title: "",
       description: "",
@@ -30,15 +27,15 @@ const Todoform = () => {
     <div>
       <input
         name="title"
-        value={todoFormState?.title||''}
+        value={todoFormState?.title || ""}
         onChange={onChangeHandler}
       />
       <input
         name="description"
-        value={todoFormState?.description||''}
+        value={todoFormState?.description || ""}
         onChange={onChangeHandler}
       />
-      <button onClick={addTodo}> { "Add"} </button>
+      <button onClick={addTodo}> {"Add"} </button>
     </div>
   );
 };

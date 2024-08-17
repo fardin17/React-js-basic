@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { TodoContext } from "../context/todo-context";
 
 const Todolist = () => {
@@ -14,7 +14,7 @@ const Todolist = () => {
     });
   };
   const updateTodo = () => {
-    dispatch({type:'update_todo', payload:todoFormState})
+    dispatch({ type: "update_todo", payload: todoFormState });
     setTodoFormState({
       title: "",
       description: "",
@@ -26,12 +26,8 @@ const Todolist = () => {
     <div>
       {todoList?.map((todo, index) => {
         return (
-          <div
-            key={index}
-            className="todo-list"
-            // onClick={() => setEditId(todo?.id)}
-          >
-            {!!todoFormState.title && todo?.id===todoFormState.id ? (
+          <div key={index} className="todo-list">
+            {!!todoFormState.title && todo?.id === todoFormState.id ? (
               <div>
                 <input
                   name="title"
@@ -64,7 +60,6 @@ const Todolist = () => {
                 dispatch({ type: "delete_todo", payload: todo.id })
               }
             >
-              {" "}
               Delete
             </p>
           </div>
