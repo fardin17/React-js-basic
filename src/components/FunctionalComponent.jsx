@@ -18,6 +18,7 @@ function FunctionalComponent() {
     if (count === 5) setTheme("dark");
     else setTheme("white");
   }, [count]);
+  
   const [formData, setFormData] = useState({
     title: "",
     "title 2": "",
@@ -25,6 +26,7 @@ function FunctionalComponent() {
     "title 4": "",
     "title 5": "",
   });
+
   const inputChangeHandler = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -32,6 +34,7 @@ function FunctionalComponent() {
       [name]: value,
     }));
   };
+
   return (
     <div className={`${theme == "dark" ? "bg-blue" : "bg-red"} `}>
       {/* Conditional rendering to display Total Count or a message */}

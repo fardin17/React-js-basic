@@ -18,7 +18,7 @@ class ClassComponent extends Component {
   render() {
     const { count } = this.state;
     return (
-      <div>
+      <div className=" bg-red-500">
         <h2> Hello i am Class Component</h2>
         <button onClick={this.handleCounter}>Class Counter</button>
         <p>{count}</p>

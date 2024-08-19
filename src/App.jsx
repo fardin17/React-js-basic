@@ -1,20 +1,13 @@
+import { Link } from "react-router-dom";
 import "./App.css";
-import ClassComponent from "./components/ClassComponent";
-import Todo from "./todo";
-import TodoContextProvider from "./context/todo-context";
-import FunctionalComponent from "./components/FunctionalComponent";
-import CounterContextProvider from "./context/counter-context";
+
 function App() {
   return (
-    <div>
-      <ClassComponent />
-      <CounterContextProvider> 
-        <FunctionalComponent />
-      </CounterContextProvider>
-      {/* <TodoContextProvider>
-        {" "}
-        <Todo />
-      </TodoContextProvider> */}
+    <div className="flex gap-2 px-4 py-3 bg-gray-200">
+      <Link to="dashboard">Dashboard</Link>
+      <Link to="product-list">Product List</Link>
+      <Link to="auth/login">Login</Link>
+      <Link to="auth/signup">Sign Up</Link>
     </div>
   );
 }
