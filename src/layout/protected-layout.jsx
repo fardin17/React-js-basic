@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Navigate, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth-context";
 
 const ProtectedLayout = () => {
@@ -16,14 +16,20 @@ const ProtectedLayout = () => {
     navigate("/auth/login");
   };
   return (
-    <div>
-      <div className="flex gap-2 px-4 py-3 bg-gray-200">
-        <Link to="/">Home</Link>
-        <Link to="/dashboard">Dashboard</Link>
-        <Link to="/product-list">Product List</Link>
-        <button onClick={logOut}>Log out</button>
+    <div className="h-screen ">
+      <div className="flex justify-between px-4 py-3 bg-gray-200">
+        <div className="flex gap-2 items-center">
+          <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "text-red-500" : "text-yellow-500")}>
+            Dashboard
+          </NavLink>
+          <NavLink to="/products" className={({ isActive }) => (isActive ? "text-red-500" : "text-yellow-500")}>
+            Product List
+          </NavLink>
+        </div>
+        <button onClick={logOut} className="bg-red-500 text-white font-bold">
+          Log out
+        </button>
       </div>
-      This is protected layout
       <Outlet />
     </div>
   );

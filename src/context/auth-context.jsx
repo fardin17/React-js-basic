@@ -1,19 +1,17 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 
 export const AuthContext = createContext();
-
 const AuthContextProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     const token = localStorage?.getItem("token");
     return token ? true : false;
   });
-  const handleAuthenticate = () => {
-    setIsAuthenticated((prev) => !prev);
+  const handleAuthenticate = (token) => {
+    if (token) {
+      localStorage?.getItem("token", token);
+      setIsAuthenticated(true);
+    } else setIsAuthenticated(false);
   };
-  return (
-    <AuthContext.Provider value={{ isAuthenticated, handleAuthenticate }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ isAuthenticated, handleAuthenticate }}>{children}</AuthContext.Provider>;
 };
 export default AuthContextProvider;

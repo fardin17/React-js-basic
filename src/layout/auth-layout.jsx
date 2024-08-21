@@ -8,13 +8,11 @@ const AuthLayout = () => {
     return <Navigate to="/dashboard" />;
   }
   return (
-    <div>
+    <div className="h-screen bg-white">
       <div className="flex gap-2 px-4 py-3 bg-gray-200">
-        <Link to="/">Home</Link>
         <Link to="/auth/login">Login</Link>
         <Link to="/auth/signup">Sign Up</Link>
       </div>
-      This is auth layout
       <Outlet />
     </div>
   );
