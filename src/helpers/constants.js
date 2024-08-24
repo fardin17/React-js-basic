@@ -19,6 +19,17 @@ export const signupFormData = [
   },
 ];
 
+export const productFormData = [
+  { label: "Product Name", type: "text", name: "name", placeholder: "Enter product name" },
+  { label: "Description", type: "text", name: "description", placeholder: "Enter product description" },
+  {
+    label: "Price",
+    type: "text",
+    name: "price",
+    placeholder: "Enter product price",
+  },
+];
+
 export const products = [
   {
     id: 1,

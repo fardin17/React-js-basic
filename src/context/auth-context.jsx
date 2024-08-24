@@ -8,7 +8,7 @@ const AuthContextProvider = ({ children }) => {
   });
   const handleAuthenticate = (token) => {
     if (token) {
-      localStorage?.getItem("token", token);
+      localStorage?.setItem("token", token);
       setIsAuthenticated(true);
     } else setIsAuthenticated(false);
   };

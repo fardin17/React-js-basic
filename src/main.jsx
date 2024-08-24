@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthLayout from "./layout/auth-layout.jsx";
@@ -11,23 +10,31 @@ import Dashboard from "./pages/dashboard.jsx";
 import ProductList from "./pages/product-list.jsx";
 import ProductDetails from "./pages/product-details.jsx";
 import AuthContextProvider from "./context/auth-context.jsx";
+import ProductCartContextProvider from "./context/product-cart-context.jsx";
+import Cart from "./pages/cart.jsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
-  },
-  {
-    path: "dashboard",
-    element: <ProtectedLayout />,
-    children: [{ path: "", element: <Dashboard /> }],
-  },
-  {
-    path: "products",
     element: <ProtectedLayout />,
     children: [
-      { path: "", element: <ProductList /> },
-      { path: ":id", element: <ProductDetails /> },
+      {
+        path: "cart",
+        element: <Cart />,
+      },
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "products",
+        element: <ProductList />,
+      },
+      {
+        path: "products/:id",
+        element: <ProductDetails />,
+      },
     ],
   },
   {
@@ -46,10 +53,16 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <RouterProvider router={router} />
-    </AuthContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthContextProvider>
+        <ProductCartContextProvider>
+          <RouterProvider router={router} />
+        </ProductCartContextProvider>
+      </AuthContextProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
