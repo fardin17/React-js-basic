@@ -49,7 +49,7 @@ const ProductList = () => {
       client.invalidateQueries(["product-list"]);
     },
   });
-
+  console.log({ data, isFetching });
   if (isFetching) return <div>Loading data.....</div>;
 
   return (
@@ -81,7 +81,7 @@ const ProductList = () => {
         </button>
       </form>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {data.map((product) => (
+        {products.map((product) => (
           <div key={product.id} className="border p-4 rounded shadow-md cursor-pointer">
             <img
               src={product.image}

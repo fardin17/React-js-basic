@@ -17,6 +17,12 @@ export const signupFormData = [
     name: "password",
     placeholder: "Enter your password",
   },
+  {
+    label: "Confirm Password",
+    type: "password",
+    name: "confirm_password",
+    placeholder: "Enter your password again",
+  },
 ];
 
 export const productFormData = [

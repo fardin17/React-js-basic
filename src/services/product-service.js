@@ -23,7 +23,10 @@ let products = [
 ];
 
 export async function getAllProducts() {
-  return await new Promise((resolve) => setTimeout(() => resolve(products), 3000));
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const data = await response.json();
+  return data;
+  // return await new Promise((resolve) => setTimeout(() => resolve(products), 3000));
 }
 
 export async function addNewProduct(product) {
