@@ -3,12 +3,12 @@ import { productFormData, products } from "../helpers/constants";
 import { useContext, useEffect, useState } from "react";
 import { ProductCartContext } from "../context/product-cart-context";
 import { FaCartPlus } from "react-icons/fa";
-import CustomInput from "../components/CustomInput";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { addNewProduct, getAllProducts } from "../services/product-service";
+import Counter from "../components/CounterComponent";
 
 const ProductList = () => {
   const navigate = useNavigate();
@@ -37,11 +37,18 @@ const ProductList = () => {
   const handleAddProduct = (values) => {
     console.log({ values });
 
-    mutateAsync({ ...values, id: data.length + 1, image: `https://placehold.co/600x400?text=${values.name}` });
+    mutateAsync({
+      ...values,
+      id: data.length + 1,
+      image: `https://placehold.co/600x400?text=${values.name}`,
+    });
   };
 
   const client = useQueryClient();
-  const { data, isFetching } = useQuery({ queryKey: ["product-list"], queryFn: getAllProducts });
+  const { data, isFetching } = useQuery({
+    queryKey: ["product-list"],
+    queryFn: getAllProducts,
+  });
 
   const { mutateAsync } = useMutation({
     mutationFn: addNewProduct,
@@ -62,6 +69,7 @@ const ProductList = () => {
           {totalCartCount}
         </div>
       </div>
+      <Counter />
       <h1 className="text-3xl font-bold text-center mb-8">Our Products</h1>
 
       <form
@@ -76,17 +84,25 @@ const ProductList = () => {
         <input {...register("price")} />
         {errors?.price?.message && <p>{errors?.price?.message}</p>}
 
-        <button type="submit" className="text-lg font-bold bg-blue-700 text-white focus:outline-none">
+        <button
+          type="submit"
+          className="text-lg font-bold bg-blue-700 text-white focus:outline-none"
+        >
           Add product
         </button>
       </form>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {products.map((product) => (
-          <div key={product.id} className="border p-4 rounded shadow-md cursor-pointer">
+          <div
+            key={product.id}
+            className="border p-4 rounded shadow-md cursor-pointer"
+          >
             <img
               src={product.image}
               alt={product.name}
-              onError={(e) => (e.target.src = "https://via.placeholder.com/150")}
+              onError={(e) =>
+                (e.target.src = "https://via.placeholder.com/150")
+              }
               className="w-full h-48 object-cover mb-4"
             />
             <h2 className="text-xl font-bold mb-2">{product.name}</h2>

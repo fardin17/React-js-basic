@@ -13,6 +13,8 @@ import AuthContextProvider from "./context/auth-context.jsx";
 import ProductCartContextProvider from "./context/product-cart-context.jsx";
 import Cart from "./pages/cart.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Provider } from "react-redux";
+import { store } from "./redux/store.js";
 
 const router = createBrowserRouter([
   {
@@ -57,12 +59,14 @@ const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <AuthContextProvider>
-        <ProductCartContextProvider>
-          <RouterProvider router={router} />
-        </ProductCartContextProvider>
-      </AuthContextProvider>
-    </QueryClientProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <AuthContextProvider>
+          <ProductCartContextProvider>
+            <RouterProvider router={router} />
+          </ProductCartContextProvider>
+        </AuthContextProvider>
+      </QueryClientProvider>
+    </Provider>
   </React.StrictMode>
 );
