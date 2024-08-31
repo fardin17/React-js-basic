@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment } from "../redux/slices/counterSlice";
+import { asyncIncrement, decrement, increment } from "../redux/slices/counterSlice";
 import { useCreatePostMutation, useDeletePostMutation, useGetAllPostsQuery } from "../redux/jsonplaceholderApi";
 
 const Counter = () => {
   // const [count, setCount] = useState({ value: 0 });
 
-  const count = useSelector((state) => state?.counter);
+  const count = useSelector((state) => state?.counter?.count);
 
   const dispatch = useDispatch();
   const { data, error, isLoading } = useGetAllPostsQuery();
@@ -30,7 +30,8 @@ const Counter = () => {
       <button
         onClick={() => {
           dispatch(increment(2));
-          handlePost();
+          dispatch(asyncIncrement(1));
+          // handlePost();
         }}
       >
         Increment Counter
